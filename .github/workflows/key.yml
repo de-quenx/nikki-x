@@ -1,0 +1,38 @@
+name: generate-keys
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate keys using OpenWrt container
+        run: |
+          docker run --rm openwrt/rootfs:x86_64-openwrt-23.05 sh -c '
+            opkg update
+            opkg install usign
+            usign -G -s key-build -p key-build.pub
+            echo "=== PRIVATE KEY (KEY_BUILD) ==="
+            cat key-build
+            echo ""
+            echo "=== PUBLIC KEY (KEY_BUILD_PUB) ==="
+            cat key-build.pub
+          ' > keys.txt
+          cat keys.txt
+
+      - name: Save keys
+        run: |
+          docker run --rm -v $(pwd):/output openwrt/rootfs:x86_64-openwrt-23.05 sh -c '
+            opkg update > /dev/null 2>&1
+            opkg install usign > /dev/null 2>&1
+            usign -G -s /output/key-build -p /output/key-build.pub
+          '
+
+      - name: Upload keys as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: openwrt-keys
+          path: |
+            key-build
+            key-build.pub
