@@ -7,9 +7,10 @@ SUBSCRIPTIONS_DIR="$HOME_DIR/subscriptions"
 MIXIN_FILE_PATH="$HOME_DIR/mixin.yaml"
 RUN_DIR="$HOME_DIR/run"
 RUN_PROFILE_PATH="$RUN_DIR/config.yaml"
-PROVIDERS_DIR="$RUN_DIR/providers"
-RULE_PROVIDERS_DIR="$PROVIDERS_DIR/rule"
-PROXY_PROVIDERS_DIR="$PROVIDERS_DIR/proxy"
+PROXY_PROVIDERS_DIR="$RUN_DIR/proxy_provider"
+RULE_PROVIDERS_DIR="$RUN_DIR/rule_provider"
+UI_DIR="$RUN_DIR/ui"
+UI_NIKKI_DIR="$UI_DIR/Nikki"
 
 # log
 LOG_DIR="/var/log/nikki"
