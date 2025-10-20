@@ -64,9 +64,8 @@ const subscriptionsDir = `${homeDir}/subscriptions`;
 const mixinFilePath = `${homeDir}/mixin.yaml`;
 const runDir = `${homeDir}/run`;
 const runProfilePath = `${runDir}/config.yaml`;
-const providersDir = `${runDir}/providers`;
-const ruleProvidersDir = `${providersDir}/rule`;
-const proxyProvidersDir = `${providersDir}/proxy`;
+const proxyProvidersDir = `${runDir}/proxy_provider`;
+const ruleProvidersDir = `${runDir}/rule_provider`;
 const logDir = `/var/log/nikki`;
 const appLogPath = `${logDir}/app.log`;
 const coreLogPath = `${logDir}/core.log`;
@@ -80,8 +79,8 @@ return baseclass.extend({
     mixinFilePath: mixinFilePath,
     runDir: runDir,
     runProfilePath: runProfilePath,
-    ruleProvidersDir: ruleProvidersDir,
     proxyProvidersDir: proxyProvidersDir,
+    ruleProvidersDir: ruleProvidersDir,
     appLogPath: appLogPath,
     coreLogPath: coreLogPath,
     debugLogPath: debugLogPath,
@@ -148,12 +147,11 @@ return baseclass.extend({
         return L.resolveDefault(fs.list(this.profilesDir), []);
     },
 
-    listRuleProviders: function () {
-        return L.resolveDefault(fs.list(this.ruleProvidersDir), []);
-    },
-
     listProxyProviders: function () {
         return L.resolveDefault(fs.list(this.proxyProvidersDir), []);
+    },
+    listRuleProviders: function () {
+        return L.resolveDefault(fs.list(this.ruleProvidersDir), []);
     },
 
     getAppLog: function () {
